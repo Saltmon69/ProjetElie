@@ -23,6 +23,7 @@ public class GameManager : MonoBehaviour
         scoreText = scoreTextObject.GetComponent<TextMeshProUGUI>();
         blade = FindObjectOfType<Blade>();
         spawner = FindObjectOfType<Spawner>();
+
     }
 
     public void IncreaseScore()
@@ -34,10 +35,15 @@ public class GameManager : MonoBehaviour
 
     private void NewGame()
     {
+        Time.timeScale = 1f;
+        blade.enabled = true;
+        spawner.enabled = true;
+        
         score = 0;
         scoreText.text = "Score: " + score.ToString();
+        
+        ClearScene();
 
-        Time.timeScale = 1f;
     }
 
     private void Start()
@@ -50,6 +56,7 @@ public class GameManager : MonoBehaviour
     {
         spawner.enabled = false;
         blade.enabled = false;
+        StartCoroutine(ExplodeSequence());
     }
 
     private IEnumerator ExplodeSequence()
@@ -79,7 +86,7 @@ public class GameManager : MonoBehaviour
         while (elapsed < duration)
         {
             float t = Mathf.Clamp01(elapsed / duration);
-            fadeImage.color = Color.Lerp(Color.clear, Color.white, t);
+            fadeImage.color = Color.Lerp(Color.white, Color.clear, t);
             
             elapsed += Time.unscaledDeltaTime;
             
@@ -94,6 +101,13 @@ public class GameManager : MonoBehaviour
         foreach (Fruit fruit in fruits)
         {
             Destroy(fruit.gameObject);
+            
+        }
+
+        Bombe[] bombes = FindObjectsOfType<Bombe>();
+        foreach (Bombe bombe in bombes)
+        {
+            Destroy(bombe.gameObject);
         }
     }
 }

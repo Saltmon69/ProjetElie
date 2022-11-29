@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using Unity.VisualScripting;
 using UnityEngine;
 using Random = System.Random;
+using Range = UnityEngine.SocialPlatforms.Range;
 
 
 public class Spawner : MonoBehaviour
@@ -12,9 +13,9 @@ public class Spawner : MonoBehaviour
 
     public GameObject[] fruitPrefabs;
     public GameObject bombPrefab;
-    public float bombChance = 5f;
+    public int bombChance = 5;
     
-    [Range(0f, 1f)]
+    
 
     [SerializeField] float minSpawnDelay = 0.25f;
     [SerializeField] float maxSpawnDelay = 1f;
@@ -26,6 +27,7 @@ public class Spawner : MonoBehaviour
     public float maxForce = 22f;
 
     public float maxLifetime = 5f;
+    [SerializeField] private int Range;
 
     private void Awake()
     {
@@ -48,9 +50,10 @@ public class Spawner : MonoBehaviour
         
         while (enabled)
         {
+            Range = UnityEngine.Random.Range(0, 100);
             GameObject prefab = fruitPrefabs[UnityEngine.Random.Range(0, fruitPrefabs.Length)];
 
-            if (UnityEngine.Random.value < bombChance)
+            if (Range< bombChance)
             {
                 prefab = bombPrefab;
             }
@@ -71,4 +74,6 @@ public class Spawner : MonoBehaviour
             yield return new WaitForSeconds(UnityEngine.Random.Range(minSpawnDelay, maxSpawnDelay));
         }
     }
+
+
 }

@@ -61,7 +61,7 @@ public class Fruit : MonoBehaviour
     {
         if (fruitSliced == true)
         {
-            SliceSFX.Play();
+            SliceSFX.enabled = true;
             fruitSliced = false;
         }
     }
