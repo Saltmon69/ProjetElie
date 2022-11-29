@@ -9,6 +9,7 @@ public class Blade : MonoBehaviour
     private Collider2D bladeCollider;
     private bool slicing;
     private TrailRenderer trail;
+    public float sliceForce = 5f;
 
     public float minSliceVelocity = 0.01f;
     
